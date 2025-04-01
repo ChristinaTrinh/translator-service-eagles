@@ -1,6 +1,5 @@
 from src.translator import translate_content
 import unittest.mock as mock
-from mock import patch, MagicMock
 import openai
 
 def test_chinese():
