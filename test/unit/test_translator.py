@@ -1,6 +1,6 @@
 from src.translator import translate_content
 import pytest
-import unittest.mock
+from unittest.mock
 
 def test_chinese():
     is_english, translated_content = translate_content("这是一条中文消息")
