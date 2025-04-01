@@ -1,12 +1,8 @@
 
 name: Pytests
 
-on:
-  push:
-    branches: [ $default-branch ]
-  pull_request:
-    branches: [ $default-branch ]
-  workflow_call: # Usually called from deploy
+on: [push, pull_request]
+# Usually called from deploy
 
 defaults:
   run:
@@ -18,7 +14,6 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
