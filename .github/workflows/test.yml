@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest ipytest openai
+          pip install pytest ipytest openai pytest-mock
       - name: Test with pytest
         env:
           client: ${{ secrets.OPENAI_KEY }}
