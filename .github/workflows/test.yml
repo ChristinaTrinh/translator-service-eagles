@@ -1,13 +1,11 @@
 
-name: Lint and test
+name: Pytests
 
 on:
   push:
-    branches:
-      - main
+    branches: [ $default-branch ]
   pull_request:
-    branches:
-      - main
+    branches: [ $default-branch ]
   workflow_call: # Usually called from deploy
 
 defaults:
