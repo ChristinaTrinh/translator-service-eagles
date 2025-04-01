@@ -19,6 +19,8 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.9", "3.10", "3.11"]
+    env:
+        client: ${{ secrets.OPENAI_KEY }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
@@ -30,7 +32,5 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest ipytest openai pytest-mock
       - name: Test with pytest
-        env:
-          client: ${{ secrets.OPENAI_KEY }}
         run: |
           pytest
