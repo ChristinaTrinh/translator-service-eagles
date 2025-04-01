@@ -12,14 +12,11 @@ permissions:
   checks: write # for coverallsapp/github-action to create new checks
   contents: read # for actions/checkout to fetch code
 
-env:
-  client: ${{ secrets.OPENAI_KEY }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         python-version: ["3.9", "3.10", "3.11"]
     steps:
@@ -33,5 +30,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest ipytest openai pytest-mock
       - name: Test with pytest
+        env:
+          client: ${{ secrets.OPENAI_KEY }}
         run: |
           pytest
