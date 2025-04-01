@@ -30,7 +30,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest ipytest openai pytest-mock
       - name: Test with pytest
+        env:
+          client: ${{ secrets.OPENAI_KEY }}
         run: |
-          env:
-            client: ${{ secrets.OPENAI_KEY }}
           pytest
