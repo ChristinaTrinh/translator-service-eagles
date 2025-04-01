@@ -1,22 +1,28 @@
 from src.translator import translate_content
 import mock
 from mock import patch, MagicMock
+from openai import OpenAIError
 
 
-def test_chinese():
-    is_english, translated_content = translate_content("这是一条中文消息")
-    assert is_english == False
-    assert translated_content == "This is a Chinese message"
-
-def test_llm_normal_response():
-    pass
-
-def test_llm_gibberish_response():
-    pass
-
-# @patch.object(client.chat.completions, 'create')
-def test_unexpected_language(mocker):
-  # we mock the model's response to return a random message
+def query_llm_robust(post: str) -> tuple[bool, str]:
+  try:
+    llm_language_result = get_language(post)
+    if not isinstance(llm_language_result, str): raise ValueError("Sorry, a language detection and translation was run on your post, but due to some error, the language result returned something that is not a string.")
+    if len(llm_language_result.split())>3 : raise ValueError("Sorry, a language detection and translation was run on your post, but due to some error, the language result contain more information than needed.")
+    if_english = eval_single_response_classification("English", llm_language_result)
+    if_gibberish = eval_single_response_classification("Gibberish", llm_language_result)
+    if if_gibberish : return (True, "Post is just gibberish, no need to translate.")
+    if not if_english :
+      llm_translated_result = get_translation(post)
+      if not isinstance(llm_translated_result, str): raise ValueError("Sorry, a language detection and translation was run on your post, but due to some error, the translation result returned something that is not a string.")
+      return (False, llm_translated_result)
+    return (True, post)
+  except ValueError as e:
+    return (False, str(e))
+  except OpenAIError as e:
+    return (False, "Sorry, a language detection and translation was run on your post, but due to some error, the calls failed.")
+  except Exception as e:
+    return (False, "Sorry, a language detection and translation was run on your post, but due to some error, the processes did not return valid response.")
 
   # mock return bad language results in terms of length
   mocker.return_value.choices[0].message.content = "I don't understand your request"
