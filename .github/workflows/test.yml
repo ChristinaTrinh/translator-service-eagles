@@ -12,6 +12,9 @@ permissions:
   checks: write # for coverallsapp/github-action to create new checks
   contents: read # for actions/checkout to fetch code
 
+env:
+  client: ${{ secrets.OPENAI_KEY }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,8 +22,6 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.9", "3.10", "3.11"]
-    env:
-        client: ${{ secrets.OPENAI_KEY }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
