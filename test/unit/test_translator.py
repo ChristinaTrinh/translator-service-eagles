@@ -4,7 +4,7 @@ import unittest.mock
 from pytest_mock import MockerFixture
 import openai
 
-client = openai.OpenAI (api_key = key)
+client = openai.OpenAI (api_key = KEY)
 
 def test_chinese():
     is_english, translated_content = translate_content("这是一条中文消息")

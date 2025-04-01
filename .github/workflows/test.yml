@@ -31,6 +31,6 @@ jobs:
           pip install pytest ipytest openai pytest-mock
       - name: Test with pytest
         env:
-          key: ${{ secrets.OPENAI_KEY }}
+          KEY: ${{ secrets.OPENAI_KEY }}
         run: |
           pytest
