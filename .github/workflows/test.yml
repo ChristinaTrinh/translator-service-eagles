@@ -19,6 +19,8 @@ jobs:
       fail-fast: true
       matrix:
         python-version: ["3.9", "3.10", "3.11"]
+    env: 
+      KEY: ${{ secrets.OPENAI_KEY }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
