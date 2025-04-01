@@ -12,6 +12,9 @@ defaults:
   run:
     shell: bash
 
+env:
+  client: ${{ secrets.OPENAPI_KEY }}
+
 permissions:
   checks: write # for coverallsapp/github-action to create new checks
   contents: read # for actions/checkout to fetch code
