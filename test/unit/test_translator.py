@@ -1,6 +1,6 @@
 from src.translator import translate_content
 import pytest
-import MockerFixture
+from pytest_mock import MockerFixture
 import openai
 
 def test_chinese():
