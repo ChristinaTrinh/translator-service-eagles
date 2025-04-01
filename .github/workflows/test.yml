@@ -28,8 +28,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
+        pip install openai
         python -m pip install --upgrade pip
-        pip install --quiet pytest ipytest pytest-mock mock
+        pip install pytest ipytest pytest-mock mock
             
     - name: Test with pytest
       run: |
