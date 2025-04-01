@@ -1,5 +1,5 @@
 
-name: Lint and test
+name: Pytests
 
 on:
   push:
