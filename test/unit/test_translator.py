@@ -14,7 +14,7 @@ def test_llm_normal_response():
 def test_llm_gibberish_response():
     pass
 
-mock = mocker.patch.object(client.chat.completions, 'create')
+mock = MockerFixture.patch.object(client.chat.completions, 'create')
 def test_unexpected_language(mocker):
   # we mock the model's response to return a random message
 
