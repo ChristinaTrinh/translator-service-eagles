@@ -37,7 +37,7 @@ def test_unexpected_language(mocker):
   mocker.side_effect = OpenAIError("OpenAI Error")
   try:
     assert query_llm_robust("我要去上课。")==(False, "Sorry, a language detection and translation was run on your post, but due to some error, the calls failed.")
-  except: AssertionError as e:
+  except AssertionError as e:
     print(f"Mock test 3 failed: {e}")
   else:
     print("Mock test 3 passed")
