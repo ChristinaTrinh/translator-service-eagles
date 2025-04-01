@@ -3,11 +3,9 @@ name: Lint and test
 
 on:
   push:
-    branches:
-      - main
+    branches: [ $default-branch ]
   pull_request:
-    branches:
-      - main
+    branches: [ $default-branch ]
   workflow_call: # Usually called from deploy
 
 defaults:
