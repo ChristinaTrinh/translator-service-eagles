@@ -1,7 +1,7 @@
 from src.translator import translate_content
 import mock
 from mock import patch, MagicMock
-
+import openai
 
 def test_chinese():
     is_english, translated_content = translate_content("这是一条中文消息")
