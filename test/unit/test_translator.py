@@ -1,4 +1,5 @@
 from src.translator import translate_content
+import mock
 from mock import patch, MagicMock
 
 
