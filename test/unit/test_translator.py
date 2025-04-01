@@ -19,7 +19,7 @@ def test_unexpected_language(mocker):
   # we mock the model's response to return a random message
 
   # mock return bad language results in terms of length
-  mocker.spy_return.choices[0].message.content = "I don't understand your request"
+  mocker.spy_return_list.choices[0].message.content = "I don't understand your request"
   try:
     assert query_llm_robust("Hier ist dein erstes Beispiel.")==(False, "Sorry, a language detection and translation was run on your post, but due to some error, the language result contain more information than needed.")
   except AssertionError as e:
@@ -27,7 +27,7 @@ def test_unexpected_language(mocker):
   else:
     print("Mock test 1 passed")
   # mock return bad language results in terms of return type
-  mocker.spy_return.choices[0].message.content = 0
+  mocker.spy_return_list.choices[0].message.content = 0
   try:
     assert query_llm_robust("Il fait beau aujourd'hui.")==(False, "Sorry, a language detection and translation was run on your post, but due to some error, the language result returned something that is not a string.")
   except AssertionError as e:
