@@ -2,8 +2,6 @@ from src.translator import translate_content
 import pytest
 from pytest_mock import MockerFixture
 import openai
-mocker = <pytest_mock.MockerFixture object at 0x0381E2D0>
-
 
 def test_chinese():
     is_english, translated_content = translate_content("这是一条中文消息")
@@ -16,8 +14,8 @@ def test_llm_normal_response():
 def test_llm_gibberish_response():
     pass
 
-@mocker.patch.object(client.chat.completions, 'create')
 def test_unexpected_language(mocker):
+  mock = mocker.patch.object(client.chat.completions, 'create')
   # we mock the model's response to return a random message
 
   # mock return bad language results in terms of length
