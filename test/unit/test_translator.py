@@ -14,8 +14,8 @@ def test_llm_normal_response():
 def test_llm_gibberish_response():
     pass
 
+mock = mocker.patch.object(client.chat.completions, 'create')
 def test_unexpected_language(mocker):
-  mock = mocker.patch.object(client.chat.completions, 'create')
   # we mock the model's response to return a random message
 
   # mock return bad language results in terms of length
