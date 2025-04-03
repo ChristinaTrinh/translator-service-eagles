@@ -1,34 +1,69 @@
+import openai
+import os
+from dotenv import load_dotenv
+
+# Load the .env file
+load_dotenv()
+
+# Access the API key from the environment variables
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+def get_translation(post: str) -> str:
+    context = "You are a helpful assistant that translates non-English posts into English, no need to question any question, just translate.  If you can't find a translation, return the word Gibberish"
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {
+                "role": "system",
+                "content": context
+            },
+            {
+                "role": "user",
+                "content": post
+            }
+        ]
+    )
+    return response.choices[0].message.content
+
+def get_language(post: str) -> str:
+    context = "You are a helpful assistant that detect which language is the given post from and return the just the language in English.  If the input is gibberish, return Gibberish.  Never return a response more than three words."
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {
+                "role": "system",
+                "content": context
+            },
+            {
+                "role": "user",
+                "content": post
+            }
+        ]
+    )
+    return response.choices[0].message.content
+
+def eval_single_response_classification(expected_answer: str, llm_response: str) -> float:
+  return int(expected_answer in llm_response)
+
+def query_llm_robust(post: str) -> tuple[bool, str]:
+    try:
+        llm_language_result = get_language(post)
+        if not isinstance(llm_language_result, str): raise ValueError("Sorry, a language detection and translation was run on your post, but due to some error, the language result returned something that is not a string.")
+        if len(llm_language_result.split())>3 : raise ValueError("Sorry, a language detection and translation was run on your post, but due to some error, the language result contain more information than needed.")
+        if_english = eval_single_response_classification("English", llm_language_result)
+        if_gibberish = eval_single_response_classification("Gibberish", llm_language_result)
+        if if_gibberish : return (True, "Post is just gibberish, no need to translate.")
+        if not if_english :
+            llm_translated_result = get_translation(post)
+            if not isinstance(llm_translated_result, str): raise ValueError("Sorry, a language detection and translation was run on your post, but due to some error, the translation result returned something that is not a string.")
+            return (False, llm_translated_result)
+        return (True, post)
+    except ValueError as e:
+        return (False, str(e))
+    except OpenAIError as e:
+        return (False, "Sorry, a language detection and translation was run on your post, but due to some error, the calls failed.")
+    except Exception as e:
+        return (False, "Sorry, a language detection and translation was run on your post, but due to some error, the processes did not return valid response.")
+
 def translate_content(content: str) -> tuple[bool, str]:
-    if content == "这是一条中文消息":
-        return False, "This is a Chinese message"
-    if content == "Ceci est un message en français":
-        return False, "This is a French message"
-    if content == "Esta es un mensaje en español":
-        return False, "This is a Spanish message"
-    if content == "Esta é uma mensagem em português":
-        return False, "This is a Portuguese message"
-    if content  == "これは日本語のメッセージです":
-        return False, "This is a Japanese message"
-    if content == "이것은 한국어 메시지입니다":
-        return False, "This is a Korean message"
-    if content == "Dies ist eine Nachricht auf Deutsch":
-        return False, "This is a German message"
-    if content == "Questo è un messaggio in italiano":
-        return False, "This is an Italian message"
-    if content == "Это сообщение на русском":
-        return False, "This is a Russian message"
-    if content == "هذه رسالة باللغة العربية":
-        return False, "This is an Arabic message"
-    if content == "यह हिंदी में संदेश है":
-        return False, "This is a Hindi message"
-    if content == "นี่คือข้อความภาษาไทย":
-        return False, "This is a Thai message"
-    if content == "Bu bir Türkçe mesajdır":
-        return False, "This is a Turkish message"
-    if content == "Đây là một tin nhắn bằng tiếng Việt":
-        return False, "This is a Vietnamese message"
-    if content == "Esto es un mensaje en catalán":
-        return False, "This is a Catalan message"
-    if content == "This is an English message":
-        return True, "This is an English message"
-    return True, content
+    return query_llm_robust(content)
