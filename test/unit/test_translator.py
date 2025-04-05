@@ -1,6 +1,7 @@
 from src.translator import translate_content, query_llm_robust
 from unittest.mock import patch, MagicMock
 import openai
+from openai import OpenAIError
 import os
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
