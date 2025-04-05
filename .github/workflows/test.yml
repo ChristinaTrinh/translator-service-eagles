@@ -3,7 +3,7 @@ name: Pytests
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ f24 ]
   pull_request:
     branches: [ f24 ]
   workflow_call: # Usually called from deploy
