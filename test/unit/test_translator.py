@@ -55,7 +55,7 @@ def test_unexpected_language(mocker):
   mocker.side_effect = Exception("Some Error")
   try:
     assert query_llm_robust("À quelle heure part le train?")==(False, "Sorry, a language detection and translation was run on your post, but due to some error, the processes did not return valid response.")
-  except AssertitonError as e:
+  except AssertionError as e:
     print(f"Mock test 4 failed: {e}")
   else:
     print("Mock test 4 passed!")
