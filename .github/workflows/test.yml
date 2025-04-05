@@ -5,7 +5,7 @@ on:
   push:
     branches: [ $default-branch ]
   pull_request:
-    branches: [ $default-branch ]
+    branches: [ f24 ]
   workflow_call: # Usually called from deploy
 
 defaults:
