@@ -1,6 +1,12 @@
 from src.translator import translate_content
 from unittest.mock import patch, MagicMock
 import openai
+import os
+
+KEY = os.getenv("KEY")
+
+if KEY is None:
+    raise ValueError("API key not found in environment variables")
 
 client = openai.OpenAI(api_key = KEY)
 
