@@ -1,5 +1,5 @@
 from src.translator import translate_content
-from mock import patch, MagicMock
+from unittest.mock import patch, MagicMock
 
 
 def test_chinese():
