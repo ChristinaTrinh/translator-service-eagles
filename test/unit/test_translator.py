@@ -1,4 +1,4 @@
-from src.translator import translate_content
+from src.translator import translate_content, query_llm_robust
 from unittest.mock import patch, MagicMock
 import openai
 import os
@@ -13,7 +13,7 @@ client = openai.OpenAI(api_key = OPENAI_API_KEY)
 def test_chinese():
     is_english, translated_content = translate_content("这是一条中文消息")
     assert is_english == False
-    assert translated_content == "This is a Chinese message"
+    assert translated_content == "This is a Chinese message."
 
 def test_llm_normal_response():
     pass
