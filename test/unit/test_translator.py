@@ -8,10 +8,17 @@ def test_chinese():
     assert translated_content == "This is a Chinese message"
 
 def test_llm_normal_response():
-    pass
+    is_english, translated_content = translate_content("This is a test for normal response.")
+    assert is_english == True
+    assert translated_content == "This is a test for normal response."
+    is_english, translated_content = translate_content("Ich liebe es, mit Python zu programmieren, weil es einfach und gleichzeitig leistungsfähig ist.")
+    assert is_english == False
+    assert translated_content == "I love programming with Python because it's simple yet powerful."
 
 def test_llm_gibberish_response():
-    pass
+    is_english, translated_content = translate_content("asdgkjasndgo;98i43qwtoishfjn")
+    assert is_english == True
+    assert translated_content == "Post is just gibberish, no need to translate."
 
 @patch.object(client.chat.completions, 'create')
 def test_unexpected_language(mocker):
