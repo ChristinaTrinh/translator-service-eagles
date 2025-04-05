@@ -19,6 +19,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      KEY: ${{ secrets.OPENAPI_KEY }}
     strategy:
       fail-fast: false
       matrix:
