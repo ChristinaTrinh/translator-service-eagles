@@ -2,7 +2,7 @@ from src.translator import translate_content
 from unittest.mock import patch, MagicMock
 import openai
 
-client = openai.OpenAI(api_key=${{ secrets.OPENAPI_KEY }})
+client = openai.OpenAI(api_key = KEY)
 
 def test_chinese():
     is_english, translated_content = translate_content("这是一条中文消息")
