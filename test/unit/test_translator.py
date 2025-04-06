@@ -1,5 +1,5 @@
 from src.translator import translate_content
-from unittest.mock import patch, MagicMock
+from mock import patch, MagicMock
 import openai
 from openai import OpenAIError
 import os
