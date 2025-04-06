@@ -13,7 +13,7 @@ def test_llm_normal_response():
     assert translated_content == "This is a test for normal response."
     is_english1, translated_content1 = translate_content("Il fait beau aujourd'hui.")
     assert is_english1 == False
-    assert translated_content1 in ["The weather is nice today.", "It is nice today."]
+    assert translated_content1 in ["The weather is nice today.", "It is nice today.", "It’s nice today."]
 
 def test_llm_gibberish_response():
     is_english, translated_content = translate_content("asdgkjasndgo;98i43qwtoishfjn")
