@@ -1,5 +1,6 @@
 from src.translator import translate_content, client
 from mock import patch, MagicMock
+import openai
 from openai import OpenAIError
 
 def test_chinese():
