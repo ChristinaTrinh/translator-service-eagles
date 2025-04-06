@@ -1,15 +1,6 @@
-from src.translator import translate_content
+from src.translator import translate_content, client
 from mock import patch, MagicMock
-import openai
 from openai import OpenAIError
-import os
-
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
-if OPENAI_API_KEY is None:
-    raise ValueError("API key not found in environment variables")
-
-client = openai.OpenAI(api_key = OPENAI_API_KEY)
 
 def test_chinese():
     is_english, translated_content = translate_content("这是一条中文消息")
