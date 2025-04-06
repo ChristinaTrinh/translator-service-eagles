@@ -11,9 +11,9 @@ def test_llm_normal_response():
     is_english, translated_content = translate_content("This is a test for normal response.")
     assert is_english == True
     assert translated_content == "This is a test for normal response."
-    is_english1, translated_content1 = translate_content("Ich liebe es, mit Python zu programmieren, weil es einfach und gleichzeitig leistungsfähig ist.")
+    is_english1, translated_content1 = translate_content("Il fait beau aujourd'hui.")
     assert is_english1 == False
-    assert translated_content1 == "I love programming with Python because it is simple and powerful at the same time."
+    assert translated_content1 == "The weather is nice today."
 
 def test_llm_gibberish_response():
     is_english, translated_content = translate_content("asdgkjasndgo;98i43qwtoishfjn")
