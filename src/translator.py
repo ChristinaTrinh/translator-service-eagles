@@ -3,7 +3,7 @@ from openai import OpenAIError
 import os
 
 # Access the API key from the environment variables
-client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = openai.OpenAI(api_key=process.env.OPENAPI_KEY)
 
 def get_translation(post: str) -> str:
     context = "You are a helpful assistant that translates non-English posts into English, no need to question any question, just translate.  If you can't find a translation, return the word Gibberish"
