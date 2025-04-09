@@ -58,6 +58,7 @@ def query_llm_robust(post: str) -> tuple[bool, str]:
     except ValueError as e:
         return (False, str(e))
     except OpenAIError as e:
+        print("e: ", e)
         return (False, "Sorry, a language detection and translation was run on your post, but due to some error, the calls failed.")
     except Exception as e:
         return (False, "Sorry, a language detection and translation was run on your post, but due to some error, the processes did not return valid response.")
